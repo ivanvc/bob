@@ -1,0 +1,133 @@
+#!/usr/bin/env ruby
+# Mainly based in capistrano's capify
+
+require 'optparse'
+require 'fileutils'
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{File.basename($0)} [path]"
+
+  opts.on("-h", "--help", "Displays this help info") do
+    puts opts
+    exit 0
+  end
+
+  begin
+    opts.parse!(ARGV)
+  rescue OptionParser::ParseError => e
+    warn e.message
+    puts opts
+    exit 1
+  end
+end
+
+if ARGV.empty?
+  abort "Please specify the directory to bobify, e.g. `#{File.basename($0)} .'"
+elsif !File.exists?(ARGV.first)
+  abort "`#{ARGV.first}' does not exist."
+elsif !File.directory?(ARGV.first)
+  abort "`#{ARGV.first}' is not a directory."
+elsif ARGV.length > 1
+  abort "Too many arguments; please specify only the directory to bobify."
+end
+
+def unindent(string)
+  indentation = string[/\A\s*/]
+  string.strip.gsub(/^#{indentation}/, "")
+end
+
+files = {
+  "script/config.yml" => (<<-FILE),
+output: 'builds/example_v{{version}}_{{date}}.sample'
+build_command: '{{my_cmd}} {{var}} -libs {{lib}} -output {{output}}'
+my_cmd: bash
+var: '-c'
+lib: '~/Code/libs'
+
+changes_regexp: 'PSE-'
+github:
+  username: 'github_username'
+  password: 'password'
+  repo: 'owner/repo'
+
+production:
+  server: user@server:/var/www/prod
+staging:
+  server: user@server:/var/www/staging
+daily_build:
+  server: user@server:/var/www/dailies
+development:
+  output: builds/example.swf
+  lib: 'libs/'
+  server: user@server:/var/www/dev
+FILE
+  "script/deploy" => unindent(<<-FILE),
+    #!/usr/bin/env ruby
+    require 'rubygems'
+    require 'bob_the_builder'
+
+    # The first argument is the environment, matches the one from the config
+    # file. It also takes two optional arguments, the directory where the git
+    # repo is, defaults to '.'. The last one is the branch that bob should use
+    # defaults to 'master'.
+    builder = Bob.new(ARGV[0] || 'development')
+    builder.build
+    # The deploy option has an optional argument, where this deploy should be
+    # done. Defaults to 'server', but can be 'github'.
+    builder.deploy
+  FILE
+
+  "script/daily_build" => (<<-FILE),
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'bob_the_builder'
+
+# The first argument is the environment, matches the one from the config
+# file. It also takes two optional arguments, the directory where the git
+# repo is, defaults to '.'. The last one is the branch that bob should use
+# defaults to 'master'.
+builder = Bob.new('daily_build')
+
+# We don't want the daily build if there are no changes, or if the source
+# doesn't compiles.
+if builder.changes_since_last_version? && builder.build
+  # Bump the version 'patch', 'minor' or 'major'.
+  builder.version_bump! ARGV[0]
+  builder.build
+  # Deploy to the server, and to GitHub.
+  builder.deploy
+  builder.deploy 'github'
+end
+FILE
+  "script/build" => unindent(<<-FILE)
+    #!/usr/bin/env ruby
+    require 'rubygems'
+    require 'bob_the_builder'
+
+    # The first argument is the environment, matches the one from the config
+    # file. It also takes two optional arguments, the directory where the git
+    # repo is, defaults to '.'. The last one is the branch that bob should use
+    # defaults to 'master'.
+    Bob.new(ARGV[0] || 'development').build
+  FILE
+}
+
+base = ARGV.shift
+files.each do |file, content|
+  file = File.join(base, file)
+  if File.exists?(file)
+    warn "[skip] '#{file}' already exists"
+  elsif File.exists?(file.downcase)
+    warn "[skip] '#{file.downcase}' exists, which could conflict with `#{file}'"
+  else
+    unless File.exists?(File.dirname(file))
+      puts "[add] making directory '#{File.dirname(file)}'"
+      FileUtils.mkdir(File.dirname(file))
+    end
+    puts "[add] writing '#{file}'"
+    File.open(file, "w") { |f| f.write(content) }
+    FileUtils.chmod(0755, file) if File.extname(file).empty?
+  end
+end
+
+puts "[done] bobified!"
