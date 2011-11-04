@@ -8,6 +8,11 @@ require 'cgi'
 require 'yaml'
 require 'fileutils'
 
+require 'rest_client'
+require 'json'
+require 'git'
+require 'zipruby'
+
 require 'bob_the_builder/bob'
 require 'bob_the_builder/git_hub_uploader'
 

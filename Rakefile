@@ -23,6 +23,10 @@ Jeweler::Tasks.new do |gem|
   gem.authors = ["Ivan Valdes (@ivanvc)"]
   gem.executables = ['bobify']
   # dependencies defined in Gemfile
+  gem.add_dependency 'rest-client'
+  gem.add_dependency 'json'
+  gem.add_dependency 'git'
+  gem.add_dependency 'zipruby'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
