@@ -65,6 +65,7 @@ FILE
     #!/usr/bin/env ruby
     require 'rubygems'
     require 'bob_the_builder'
+    include BobTheBuilder
 
     # The first argument is the environment, matches the one from the config
     # file. It also takes two optional arguments, the directory where the git
@@ -81,6 +82,7 @@ FILE
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'bob_the_builder'
+include BobTheBuilder
 
 # The first argument is the environment, matches the one from the config
 # file. It also takes two optional arguments, the directory where the git
@@ -103,6 +105,7 @@ FILE
     #!/usr/bin/env ruby
     require 'rubygems'
     require 'bob_the_builder'
+    include BobTheBuilder
 
     # The first argument is the environment, matches the one from the config
     # file. It also takes two optional arguments, the directory where the git
