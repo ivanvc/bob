@@ -120,7 +120,8 @@ module BobTheBuilder
     end
 
     def next_version(change_type = 'patch')
-      version = current_version.split('.').map(&:to_i) | [0, 0, 0]
+      version = current_version.split('.').map(&:to_i)
+      (0..3).each { |i| version[i] ||= 0 }
 
       case change_type
       when 'patch'
