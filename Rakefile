@@ -27,6 +27,7 @@ Jeweler::Tasks.new do |gem|
   gem.add_dependency 'json'
   gem.add_dependency 'git'
   gem.add_dependency 'zipruby'
+  gem.add_dependency 'orderdhash'
 end
 Jeweler::RubygemsDotOrgTasks.new
 

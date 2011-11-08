@@ -1,8 +1,8 @@
 # Bob The Builder
 
-Bob The Builder is easy building and deploying applications.
+<p><img src="http://i.imgur.com/C7GBG.jpg" alt="Bob The Builder" title="Bob The Builder" align="right" style="padding-left: 10px"></p>
 
-![Bob The Builder](http://i.imgur.com/C7GBG.jpg "Bob The Builder")
+Bob The Builder is easy building and deploying applications.
 
 ## Installation
 
