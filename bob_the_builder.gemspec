@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bob_the_builder}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Ivan Valdes (@ivanvc)}]
-  s.date = %q{2011-11-07}
+  s.date = %q{2011-11-08}
   s.description = %q{longer description of your gem}
   s.email = %q{ivan@ooyala.com}
   s.executables = [%q{bobify}]
@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<git>, [">= 0"])
       s.add_runtime_dependency(%q<zipruby>, [">= 0"])
+      s.add_runtime_dependency(%q<orderdhash>, [">= 0"])
     else
       s.add_dependency(%q<rest-client>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
@@ -71,6 +72,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<git>, [">= 0"])
       s.add_dependency(%q<zipruby>, [">= 0"])
+      s.add_dependency(%q<orderdhash>, [">= 0"])
     end
   else
     s.add_dependency(%q<rest-client>, [">= 0"])
@@ -86,6 +88,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<git>, [">= 0"])
     s.add_dependency(%q<zipruby>, [">= 0"])
+    s.add_dependency(%q<orderdhash>, [">= 0"])
   end
 end
 
