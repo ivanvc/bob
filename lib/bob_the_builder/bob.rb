@@ -11,7 +11,8 @@ module BobTheBuilder
     end
 
     def version_bump!(change_type)
-      unless type == 'patch' || type == 'minor' || type == 'major'
+      unless change_type == 'patch' || change_type == 'minor' ||
+        change_type == 'major'
         ohai "Change type not recognized selecting 'patch' as default value"
         type = 'patch'
       end
