@@ -16,5 +16,7 @@ require 'zipruby'
 require 'bob_the_builder/bob'
 require 'bob_the_builder/git_hub_uploader'
 
+require 'orderedhash' if RUBY_VERSION < '1.9'
+
 module BobTheBuilder
 end
