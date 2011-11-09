@@ -12,4 +12,4 @@ gem 'json'
 gem 'git'
 gem 'zipruby'
 
-gem 'orderedhash' if RUBY_VERSION < '1.9'
+gem 'orderedhash'
