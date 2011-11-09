@@ -34,11 +34,11 @@ Gem::Specification.new do |s|
     "spec/bob_the_builder_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/ivanvc/bob_the_builder}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.5}
-  s.summary = %q{one-line summary of your gem}
+  s.homepage = "http://github.com/ivanvc/bob_the_builder"
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.10"
+  s.summary = "one-line summary of your gem"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
