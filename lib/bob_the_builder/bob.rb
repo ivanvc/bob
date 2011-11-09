@@ -114,7 +114,7 @@ module BobTheBuilder
 
     def newer_commits
       if current_version
-        repo.log.since(current_version)
+        repo.log.between(current_version, 'HEAD')
       else
         repo.log
       end
