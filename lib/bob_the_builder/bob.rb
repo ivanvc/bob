@@ -164,12 +164,13 @@ module BobTheBuilder
       option = ENV[[env, option].join('_').upcase] ||
         ENV[[env, option].join('_').downcase] ||
         ENV[option.upcase] || ENV[option.downcase] ||
-        RUBY_VERSION < '1.9' &&
-        !repo.config(['bob', env, option].join('.')).empty? &&
-        repo.config(['bob', env, option].join('.')) ||
-        RUBY_VERSION < '1.9' &&
-        !repo.config(['bob', option].join('.')).empty? &&
-        repo.config(['bob', option].join('.')) ||
+        # Fails in new git versions (1.7.5+)
+        #RUBY_VERSION < '1.9' &&
+        #!repo.config(['bob', env, option].join('.')).empty? &&
+        #repo.config(['bob', env, option].join('.')) ||
+        #RUBY_VERSION < '1.9' &&
+        #!repo.config(['bob', option].join('.')).empty? &&
+        #repo.config(['bob', option].join('.')) ||
         options[env] && options[env][option] || options[option]
 
       return unless option
