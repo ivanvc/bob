@@ -141,7 +141,12 @@ module BobTheBuilder
     end
 
     def current_version
-      @current_version ||= repo.tags.size.zero? ? '0.0.0' : repo.tags.last.name
+      @current_version ||= begin
+        tags = repo.tags.sort do |a,b|
+          repo.object(a.sha).date <=> repo.object(b.sha).date
+        end
+        tags.size.zero? ? '0.0.0' : tags.last.name
+      end
     end
 
     def options

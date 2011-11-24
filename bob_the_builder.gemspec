@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "bob_the_builder"
-  s.version = "0.1.6"
+  s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ivan Valdes (@ivanvc)"]
-  s.date = "2011-11-09"
+  s.date = "2011-11-11"
   s.description = "longer description of your gem"
   s.email = "ivan@ooyala.com"
   s.executables = ["bobify"]
