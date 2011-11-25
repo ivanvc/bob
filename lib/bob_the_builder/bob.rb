@@ -143,7 +143,8 @@ module BobTheBuilder
     def current_version
       @current_version ||= begin
         tags = repo.tags.sort do |a,b|
-          repo.object(a.sha).date <=> repo.object(b.sha).date
+          (repo.object(a.sha).date rescue Time.at(0)) <=>
+          (repo.object(b.sha).date rescue Time.at(0))
         end
         tags.size.zero? ? '0.0.0' : tags.last.name
       end
