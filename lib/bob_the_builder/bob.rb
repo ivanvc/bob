@@ -14,7 +14,7 @@ module BobTheBuilder
       unless change_type == 'patch' || change_type == 'minor' ||
         change_type == 'major'
         ohai "Change type not recognized selecting 'patch' as default value"
-        type = 'patch'
+        change_type = 'patch'
       end
 
       @current_version = next_version(change_type)
